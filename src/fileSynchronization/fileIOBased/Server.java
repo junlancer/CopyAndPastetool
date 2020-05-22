@@ -1,4 +1,4 @@
-package fileSynchronization.FileIOBased;
+package fileSynchronization.fileIOBased;
 
 import fileSynchronization.utils.ClipboardUtils;
 import fileSynchronization.utils.ConfigUtils;

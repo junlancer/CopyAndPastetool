@@ -21,8 +21,12 @@ public class ClipboardUtils {
         String ret = "";
         Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
         // 获取剪切板中的内容
-        Transferable clipTf = sysClip.getContents(null);
-
+        Transferable clipTf = null;
+        try {
+            clipTf = sysClip.getContents(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (clipTf != null) {
             // 检查内容是否是文本类型
             if (clipTf.isDataFlavorSupported(DataFlavor.stringFlavor)) {

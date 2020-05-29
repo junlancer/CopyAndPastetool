@@ -2,7 +2,6 @@ package fileSynchronization.fileIOBased;
 
 import fileSynchronization.utils.ClipboardUtils;
 import fileSynchronization.utils.ConfigUtils;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -12,24 +11,22 @@ import java.nio.charset.StandardCharsets;
  * 复制端,物理机
  */
 public class Server {
-    private static String clipboardString;
-    private static String cache;
-    private static FileOutputStream outputStream;
-    private static File sharedFile;
-    private static String filePath;
+    private String cache;
+    private FileOutputStream outputStream;
+    private String filePath;
 
-    public static void main(String[] s) {
+    public void start() {
         filePath = ConfigUtils.getSharedFilePath() + "\\sharedFile.txt";
         System.out.println(filePath);
         //设置刷新时间
         while (true) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(ConfigUtils.getTime());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             //读取字符
-            clipboardString = ClipboardUtils.getSysClipboardText();
+            String clipboardString = ClipboardUtils.getSysClipboardText();
             //判断是否写入,若有变化则写入到共享文件夹
             if (clipboardString != null && !clipboardString.equals(cache)) {
                 //String不可变对象
@@ -41,8 +38,8 @@ public class Server {
     }
 
     //外面配置共享文件夹地址
-    private static void writeTosharedFile(String cache) {
-        sharedFile = new File(filePath);
+    private void writeTosharedFile(String cache) {
+        File sharedFile = new File(filePath);
         if (!sharedFile.exists()) {
             try {
                 sharedFile.createNewFile();

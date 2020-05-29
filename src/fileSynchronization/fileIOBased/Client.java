@@ -2,7 +2,6 @@ package fileSynchronization.fileIOBased;
 
 import fileSynchronization.utils.ClipboardUtils;
 import fileSynchronization.utils.ConfigUtils;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
@@ -12,12 +11,10 @@ import java.nio.charset.StandardCharsets;
  * 粘贴端,虚拟机
  */
 public class Client {
-    private static FileInputStream inputStream;
-    private static File sharedFile;
-    private static String filePath;
+    private FileInputStream inputStream;
 
-    public static void main(String[] s) {
-        filePath = ConfigUtils.getSharedFilePath() + "\\sharedFile.txt";
+    public void start() {
+        String filePath = ConfigUtils.getSharedFilePath() + "\\sharedFile.txt";
         long beforeTime = 0;
         while (true) {
             try {
@@ -25,7 +22,7 @@ public class Client {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            sharedFile = new File(filePath);
+            File sharedFile = new File(filePath);
             if (sharedFile.lastModified() != beforeTime) {
                 beforeTime = sharedFile.lastModified();
                 BufferedReader in = null;

@@ -17,7 +17,7 @@ public class ClipboardUtils {
     /**
      * 从剪切板获得文字。
      */
-    public static String getSysClipboardText() {
+    public static synchronized String getSysClipboardText() {
         String ret = "";
         Clipboard sysClip = Toolkit.getDefaultToolkit().getSystemClipboard();
         // 获取剪切板中的内容
@@ -45,7 +45,7 @@ public class ClipboardUtils {
     /**
      * 将字符串复制到剪切板。
      */
-    public static void setSysClipboardText(String writeMe) {
+    public static synchronized void setSysClipboardText(String writeMe) {
         Clipboard clip = Toolkit.getDefaultToolkit().getSystemClipboard();
         Transferable tText = new StringSelection(writeMe);
         clip.setContents(tText, null);
